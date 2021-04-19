@@ -69,7 +69,7 @@ class block_forum_groups extends block_base {
             $this->content->text = $renderer->render(new forum_groups($coursemodule));
         } else {
             $this->content->text = \html_writer::span(
-                get_string('invalidmodulename', 'error',$coursemodule->name));
+                get_string('invalidmodulename', 'error'));
         }
         return $this->content;
 
