@@ -30,12 +30,12 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class block_forum_groups_edit_form extends block_edit_form {
-
     /**
      * Extends the configuration form for block_forum_groups.
+     * @param object $mform
+     * @throws coding_exception
      */
     protected function specific_definition($mform) {
-
         // Section header title.
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
         $mform->addElement('text',

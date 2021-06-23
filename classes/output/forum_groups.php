@@ -29,6 +29,7 @@ use context_course;
 use context_helper;
 use context_module;
 use core_course\external\course_summary_exporter;
+use mod_forum\local\container;
 use moodle_url;
 use renderable;
 use renderer_base;
@@ -57,6 +58,7 @@ class forum_groups implements renderable, templatable {
      * @var \cm_info|null $cm
      */
     protected $cm = null;
+
     /**
      * forum_groups constructor.
      * Retrieve matching forum posts sorted in reverse order
@@ -81,16 +83,16 @@ class forum_groups implements renderable, templatable {
     public function export_for_template(renderer_base $renderer) {
         $context = new \stdClass();
 
-        $context->groups  = [];
+        $context->groups = [];
         $groups = groups_get_all_groups($this->courseid, 0, 0, 'g.*', true);
-        foreach($groups as $group) {
+        foreach ($groups as $group) {
 
-            $messagecount = $this->get_forum_message_count($group->id, $this->forumid);
-            $forumlink  = new moodle_url('/mod/forum/view.php', array(
+            $messagecount = static::get_forum_message_count($group->id, $this->forumid);
+            $forumlink = new moodle_url('/mod/forum/view.php', array(
                 'id' => $this->cm->id,
                 'group' => $group->id
-                ));
-            $context->groups[]  = [
+            ));
+            $context->groups[] = [
                 'name' => $group->name,
                 'memberscount' => count($group->members),
                 'link' => $forumlink->out(false),
@@ -101,11 +103,25 @@ class forum_groups implements renderable, templatable {
         return $context;
     }
 
-    protected function get_forum_message_count($groupid, $forumid) {
-        global $DB;
-        return $DB->count_records_sql('SELECT COUNT(*) FROM {forum_discussions} d 
-            LEFT JOIN {forum_posts} p ON p.discussion = d.id
-            WHERE d.groupid = :groupid AND d.forum = :forumid
-        ', array('forumid'=>$forumid, 'groupid'=>$groupid));
+    /**
+     * Get count for messages
+     *
+     * @param int $groupid
+     * @param int $forumid
+     * @return int|void
+     */
+    public static function get_forum_message_count($groupid, $forumid) {
+        global $USER;
+        $currentgroupid = $groupid;
+        $vaultfactory = container::get_vault_factory();
+        $forumvault = $vaultfactory->get_forum_vault();
+        $forum = $forumvault->get_from_id($forumid);
+
+        $alldiscussions = mod_forum_get_discussion_summaries($forum, $USER, $currentgroupid, 0);
+
+        $alldiscussions = array_filter($alldiscussions, function($disc) use ($currentgroupid) {
+            return $disc->get_discussion()->get_group_id() == $currentgroupid;
+        });
+        return count($alldiscussions);
     }
 }

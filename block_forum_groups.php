@@ -47,7 +47,6 @@ class block_forum_groups extends block_base {
      * @return stdClass The block contents.
      */
     public function get_content() {
-        global $PAGE;
         if ($this->content !== null) {
             return $this->content;
         }
@@ -62,7 +61,7 @@ class block_forum_groups extends block_base {
         $this->content->icons = array();
         $this->content->footer = '';
 
-        $coursemodule = $PAGE->cm;
+        $coursemodule = $this->page->cm;
 
         if (!empty($coursemodule) && $coursemodule->modname == 'forum') {
             $renderer = $this->page->get_renderer('core');
@@ -86,7 +85,7 @@ class block_forum_groups extends block_base {
         if (empty($this->config->title)) {
             $this->title = get_string('pluginname', 'block_forum_groups');
         } else {
-            // First check if the title is in fact a language string
+            // First check if the title is in fact a language string.
             list($ls, $mod) = explode('|', $this->config->title);
             $this->title = $this->config->title;
             if (!empty($ls) && !empty($mod)) {
@@ -111,7 +110,7 @@ class block_forum_groups extends block_base {
      *
      * @return bool True if the global configuration is enabled.
      */
-    function has_config() {
+    public function has_config() {
         return true;
     }
 

@@ -1,8 +1,10 @@
 # Forum Groups #
 
-TODO Describe the plugin shortly here.
+[![Moodle plugin CI for Moodle 3.9 and 3.10](https://github.com/call-learning/moodle-block_forum_groups/actions/workflows/main.yml/badge.svg)](https://github.com/call-learning/moodle-block_forum_groups/actions/workflows/main.yml)
 
-TODO Provide more detailed description here.
+List all groups in a given forum (the block is intended to be displayed on a forum activity page)
+and the number of messages for each group.
+The forum is supposed to be in separate group mode.
 
 ## License ##
 
