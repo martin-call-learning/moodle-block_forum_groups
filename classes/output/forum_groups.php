@@ -96,7 +96,8 @@ class forum_groups implements renderable, templatable {
                 'name' => $group->name,
                 'memberscount' => count($group->members),
                 'link' => $forumlink->out(false),
-                'messagecount' => $messagecount
+                'messagecount' => $messagecount,
+                'ismember' => groups_is_member($group->id)
             ];
         }
 
