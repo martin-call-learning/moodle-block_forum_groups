@@ -122,6 +122,7 @@ class block_forum_groups extends block_base {
     public function applicable_formats() {
         return array(
             'mod-forum-view' => true,
+            'group-overview' => true
         );
     }
 }
