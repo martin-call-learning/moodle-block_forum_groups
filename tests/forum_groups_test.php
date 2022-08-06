@@ -21,10 +21,10 @@
  * @copyright   2021 CALL Learning <laurent@call-learning.fr>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
+namespace block_forum_groups;
+use advanced_testcase;
 use block_forum_groups\output\forum_groups;
-
-defined('MOODLE_INTERNAL') || die();
+use stdClass;
 
 /**
  * Class block_forum_groups
@@ -36,8 +36,6 @@ defined('MOODLE_INTERNAL') || die();
 class forum_groups_test extends advanced_testcase {
     /**
      * Group member list
-     *
-     * @throws coding_exception
      */
     public function test_get_group_messages_count() {
         global $OUTPUT, $PAGE;
@@ -69,7 +67,4 @@ class forum_groups_test extends advanced_testcase {
         // No group.
         $this->assertEquals(4, forum_groups::get_forum_message_count(-1, $forum->id));
     }
-
 }
-
-

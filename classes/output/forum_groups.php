@@ -21,9 +21,7 @@
  * @copyright   2021 CALL Learning <laurent@call-learning.fr>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 namespace block_forum_groups\output;
-defined('MOODLE_INTERNAL') || die();
 
 use context_course;
 use context_helper;
@@ -45,6 +43,11 @@ use user_picture;
  */
 class forum_groups implements renderable, templatable {
     /**
+     * @var object $config
+     */
+    protected $config = null;
+
+    /**
      * @var $forumid
      */
     protected $forumid = null;
@@ -64,13 +67,15 @@ class forum_groups implements renderable, templatable {
      * Retrieve matching forum posts sorted in reverse order
      *
      * @param \cm_info $coursemodule
+     * @param object $config
      * @throws \coding_exception
      * @throws \dml_exception
      */
-    public function __construct($coursemodule) {
+    public function __construct($coursemodule, $config) {
         $this->courseid = $coursemodule->course;
         $this->forumid = $coursemodule->instance;
         $this->cm = $coursemodule;
+        $this->config = $config;
     }
 
     /**
@@ -86,21 +91,25 @@ class forum_groups implements renderable, templatable {
         $context->groups = [];
         $groups = groups_get_all_groups($this->courseid, 0, 0, 'g.*', true);
         foreach ($groups as $group) {
-
             $messagecount = static::get_forum_message_count($group->id, $this->forumid);
             $forumlink = new moodle_url('/mod/forum/view.php', array(
                 'id' => $this->cm->id,
                 'group' => $group->id
             ));
-            $context->groups[] = [
-                'name' => $group->name,
-                'memberscount' => count($group->members),
-                'link' => $forumlink->out(false),
-                'messagecount' => $messagecount,
-                'ismember' => groups_is_member($group->id)
-            ];
+            $ismember = groups_is_member($group->id);
+            if (!empty($this->config->showall) || $ismember) {
+                $context->groups[] = [
+                    'name' => $group->name,
+                    'memberscount' => count($group->members),
+                    'link' => $forumlink->out(false),
+                    'messagecount' => $messagecount,
+                    'ismember' => $ismember
+                ];
+            }
         }
-
+        usort($context->groups, function($val1, $val2) {
+            return $val1['ismember'] < $val2['ismember'];
+        });
         return $context;
     }
 

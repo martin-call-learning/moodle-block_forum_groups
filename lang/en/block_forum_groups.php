@@ -28,3 +28,6 @@ defined('MOODLE_INTERNAL') || die();
 $string['pluginname'] = 'Forum Groups';
 $string['memberscount'] = '{$a} Members';
 $string['messagescount'] = '{$a} Messages';
+$string['nogroups'] = 'Sorry, no groups here !';
+$string['title'] = 'Forum Groups';
+$string['showall'] = 'Show all groups';

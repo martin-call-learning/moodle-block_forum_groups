@@ -40,10 +40,16 @@ class block_forum_groups_edit_form extends block_edit_form {
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
         $mform->addElement('text',
             'config_title',
-            get_string('title', 'block_forum_feed')
+            get_string('title', 'block_forum_groups')
         );
-        $mform->setDefault('config_title', get_string('pluginname', 'block_forum_feed'));
+        $mform->setDefault('config_title', get_string('pluginname', 'block_forum_groups'));
         $mform->setType('config_title', PARAM_TEXT);
 
+        $mform->addElement('advcheckbox',
+            'config_showall',
+            get_string('showall', 'block_forum_groups')
+        );
+        $mform->setDefault('config_showall', false);
+        $mform->setType('config_showall', PARAM_TEXT);
     }
 }

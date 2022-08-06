@@ -65,7 +65,7 @@ class block_forum_groups extends block_base {
 
         if (!empty($coursemodule) && $coursemodule->modname == 'forum') {
             $renderer = $this->page->get_renderer('core');
-            $this->content->text = $renderer->render(new forum_groups($coursemodule));
+            $this->content->text = $renderer->render(new forum_groups($coursemodule, $this->config));
         } else {
             $this->content->text = \html_writer::span(
                 get_string('invalidmodulename', 'error'));
@@ -85,12 +85,14 @@ class block_forum_groups extends block_base {
         if (empty($this->config->title)) {
             $this->title = get_string('pluginname', 'block_forum_groups');
         } else {
-            // First check if the title is in fact a language string.
-            list($ls, $mod) = explode('|', $this->config->title);
             $this->title = $this->config->title;
-            if (!empty($ls) && !empty($mod)) {
-                if (get_string_manager()->string_exists($ls, $mod)) {
-                    $this->title = get_string($ls, $mod);
+            if (strpos($this->config->title, '|') !== false) {
+                // First check if the title is in fact a language string.
+                list($ls, $mod) = explode('|', $this->config->title);
+                if (!empty($ls) && !empty($mod)) {
+                    if (get_string_manager()->string_exists($ls, $mod)) {
+                        $this->title = get_string($ls, $mod);
+                    }
                 }
             }
         }
