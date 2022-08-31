@@ -21,18 +21,15 @@
  * @copyright   2021 CALL Learning <laurent@call-learning.fr>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 namespace block_forum_groups\output;
 
-use context_course;
-use context_helper;
-use context_module;
-use core_course\external\course_summary_exporter;
+use cm_info;
 use mod_forum\local\container;
 use moodle_url;
 use renderable;
 use renderer_base;
 use templatable;
-use user_picture;
 
 /**
  * Block forum_groups is defined here.
@@ -58,7 +55,7 @@ class forum_groups implements renderable, templatable {
     protected $courseid = null;
 
     /**
-     * @var \cm_info|null $cm
+     * @var cm_info|null $cm
      */
     protected $cm = null;
 
@@ -66,12 +63,12 @@ class forum_groups implements renderable, templatable {
      * forum_groups constructor.
      * Retrieve matching forum posts sorted in reverse order
      *
-     * @param \cm_info $coursemodule
+     * @param cm_info $coursemodule
      * @param object $config
      * @throws \coding_exception
      * @throws \dml_exception
      */
-    public function __construct($coursemodule, $config) {
+    public function __construct(cm_info $coursemodule, object $config) {
         $this->courseid = $coursemodule->course;
         $this->forumid = $coursemodule->instance;
         $this->cm = $coursemodule;
@@ -85,7 +82,7 @@ class forum_groups implements renderable, templatable {
      * @return object
      * @throws \coding_exception
      */
-    public function export_for_template(renderer_base $renderer) {
+    public function export_for_template(renderer_base $renderer): object {
         $context = new \stdClass();
 
         $context->groups = [];
@@ -118,9 +115,9 @@ class forum_groups implements renderable, templatable {
      *
      * @param int $groupid
      * @param int $forumid
-     * @return int|void
+     * @return int
      */
-    public static function get_forum_message_count($groupid, $forumid) {
+    public static function get_forum_message_count($groupid, $forumid): int {
         global $USER;
         $currentgroupid = $groupid;
         $vaultfactory = container::get_vault_factory();

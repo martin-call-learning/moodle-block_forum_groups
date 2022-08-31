@@ -38,7 +38,6 @@ class forum_groups_test extends advanced_testcase {
      * Group member list
      */
     public function test_get_group_messages_count() {
-        global $OUTPUT, $PAGE;
         $this->resetAfterTest();
         // User that will create the forum.
         $user = self::getDataGenerator()->create_user();
