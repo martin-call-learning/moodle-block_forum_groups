@@ -63,7 +63,7 @@ class block_forum_groups extends block_base {
 
         $coursemodule = $this->page->cm;
 
-        if (!empty($coursemodule) && $coursemodule->modname == 'forum') {
+        if (!empty($this->config) && !empty($coursemodule) && $coursemodule->modname == 'forum') {
             $renderer = $this->page->get_renderer('core');
             $this->content->text = $renderer->render(new forum_groups($coursemodule, $this->config));
         } else {
