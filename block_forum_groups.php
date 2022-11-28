@@ -63,11 +63,16 @@ class block_forum_groups extends block_base {
 
         $coursemodule = $this->page->cm;
 
-        if (!empty($this->config) && !empty($coursemodule) && $coursemodule->modname == 'forum') {
+        if (empty($this->config)) {
+            $this->content->text = html_writer::span(get_string('notconfiguredblock', 'block_forum_groups'));
+            return $this->content;
+        }
+
+        if (!empty($coursemodule) && $coursemodule->modname == 'forum') {
             $renderer = $this->page->get_renderer('core');
             $this->content->text = $renderer->render(new forum_groups($coursemodule, $this->config));
         } else {
-            $this->content->text = \html_writer::span(
+            $this->content->text = html_writer::span(
                 get_string('invalidmodulename', 'error'));
         }
         return $this->content;

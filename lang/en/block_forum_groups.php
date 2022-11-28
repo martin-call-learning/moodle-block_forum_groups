@@ -31,3 +31,4 @@ $string['messagescount'] = '{$a} Messages';
 $string['nogroups'] = 'Sorry, no groups here !';
 $string['title'] = 'Forum Groups';
 $string['showall'] = 'Show all groups';
+$string['notconfiguredblock'] = "This block isn't configured yet";
