@@ -25,10 +25,12 @@
 namespace block_forum_groups\output;
 
 use cm_info;
+use coding_exception;
 use mod_forum\local\container;
 use moodle_url;
 use renderable;
 use renderer_base;
+use stdClass;
 use templatable;
 
 /**
@@ -65,8 +67,6 @@ class forum_groups implements renderable, templatable {
      *
      * @param cm_info $coursemodule
      * @param object $config
-     * @throws \coding_exception
-     * @throws \dml_exception
      */
     public function __construct(cm_info $coursemodule, object $config) {
         $this->courseid = $coursemodule->course;
@@ -80,10 +80,10 @@ class forum_groups implements renderable, templatable {
      *
      * @param renderer_base $renderer
      * @return object
-     * @throws \coding_exception
+     * @throws coding_exception
      */
     public function export_for_template(renderer_base $renderer): object {
-        $context = new \stdClass();
+        $context = new stdClass();
 
         $context->groups = [];
         $groups = groups_get_all_groups($this->courseid, 0, 0, 'g.*', true);

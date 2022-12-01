@@ -36,6 +36,8 @@ use stdClass;
 class forum_groups_test extends advanced_testcase {
     /**
      * Group member list
+     *
+     * @covers \block_forum_groups\output\forum_groups::get_forum_message_count
      */
     public function test_get_group_messages_count() {
         $this->resetAfterTest();
