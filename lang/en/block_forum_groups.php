@@ -33,3 +33,5 @@ $string['title'] = 'Forum Groups';
 $string['showall'] = 'Show all groups';
 $string['notconfiguredblock'] = "This block isn't configured yet";
 $string['privacy:metadata'] = 'The forum groups block doesn"t sotre any data.';
+$string['forum_groups:myaddinstance'] = 'Add a Forum groups block to my moodle.';
+$string['forum_groups:addinstance'] = 'Add a Forum groups block.';
