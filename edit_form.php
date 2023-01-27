@@ -18,17 +18,10 @@
  * Form for editing forum_groups block instances.
  *
  * @package     block_forum_groups
- * @copyright   2021 CALL Learning <laurent@call-learning.fr>
+ * @copyright   2023 CALL Learning <laurent@call-learning.fr>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-/**
- * Form for editing block_forum_groups block instances.
- *
- * @package    block_forum_groups
- * @copyright  2021 CALL Learning <laurent@call-learning.fr>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 class block_forum_groups_edit_form extends block_edit_form {
     /**
      * Extends the configuration form for block_forum_groups.
