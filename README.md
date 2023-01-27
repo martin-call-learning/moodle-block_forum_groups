@@ -6,6 +6,12 @@ List all groups in a given forum (the block is intended to be displayed on a for
 and the number of messages for each group.
 The forum is supposed to be in separate group mode.
 
+### Supported Moodle versions
+
+This block supports several of the latest Moodle versions.
+
+You can safely use this block with Moodle **4.1**, **4.0**, **3.11**, **3.10**, **3.9**
+
 ## License ##
 
 2021 CALL Learning <laurent@call-learning.fr>
