@@ -21,7 +21,6 @@
  * @copyright   2023 CALL Learning <laurent@call-learning.fr>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 class block_forum_groups_edit_form extends block_edit_form {
     /**
      * Extends the configuration form for block_forum_groups.
