@@ -32,3 +32,4 @@ $string['nogroups'] = 'Sorry, no groups here !';
 $string['title'] = 'Forum Groups';
 $string['showall'] = 'Show all groups';
 $string['notconfiguredblock'] = "This block isn't configured yet";
+$string['privacy:metadata'] = 'The forum groups block doesn"t sotre any data.';
